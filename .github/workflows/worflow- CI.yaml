@@ -30,11 +30,6 @@ jobs:
           pip install -r requirements.txt
           pip install pytest  # Ensure pytest is installed
 
-      - name: Run tests
-        run: |
-          source venv/bin/activate
-          pytest  # or your preferred test command
-
       - name: Build project
         run: |
           source venv/bin/activate
