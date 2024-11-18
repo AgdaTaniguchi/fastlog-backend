@@ -24,23 +24,25 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t react-frontend:latest .
+          docker build -t flask-backend:latest .
 
       - name: Deploy to EC2 using Docker Swarm
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
             # Navigate to the target directory
-            cd /fastlog-sptech || git clone https://github.com/your-username/your-repo.git /fastlog-sptech
-            cd /fastlog-sptech  # Make sure we are in the project directory
+            cd /chave-pen
+
+            ssh -i "ch28102024.pem" ubuntu@10.0.2.37
+            
+            cd /fastlog-backend || git clone https://github.com/AgdaTaniguchi/fastlog-backend.git
+            cd /fastlog-backend  # Make sure we are in the project directory
 
             # Pull the latest changes
             git pull origin main
 
             # Build Docker image
-            docker build -t react-frontend:latest .
+            docker build -t flask-backend:latest .
 
             # Deploy using Docker Swarm
-            docker service create --name frontend1 --replicas 1 -p 80:80 react-frontend:latest
-            docker service create --name frontend2 --replicas 1 -p 80:80 react-frontend:latest
-            docker service create --name frontend3 --replicas 1 -p 80:80 react-frontend:latest
+            docker service create --name backend --replicas 1 -p 80:80 flask-backend:latest
           EOF
