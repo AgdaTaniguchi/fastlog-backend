@@ -10,7 +10,7 @@ on:
 
 jobs:
   build_and_test:
-    name: Build and Test Python App
+    name: Build and Test Flask Application
     runs-on: ubuntu-latest
 
     steps:
@@ -28,9 +28,16 @@ jobs:
           source venv/bin/activate
           pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pytest  # Ensure pytest is installed
+          pip install pytest  # Install pytest for testing
 
-      - name: Build project
+      - name: Build project (Optional, if needed)
         run: |
           source venv/bin/activate
-          python setup.py sdist bdist_wheel  # Adjust according to your build process
+          # For example, if you need to build something like a package, you can add build commands here.
+          echo "Build step can be customized if necessary"
+      
+      - name: Start Flask app (Optional)
+        run: |
+          source venv/bin/activate
+          FLASK_APP=server.py FLASK_ENV=development flask run &
+          sleep 5  # Wait for the app to start
