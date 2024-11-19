@@ -30,7 +30,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
             # Navigate to the target directory
-            cd /chave-pen
+            cd chave-pen
 
             ssh -i "ch28102024.pem" ubuntu@10.0.2.37
             
