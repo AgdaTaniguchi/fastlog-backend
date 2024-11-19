@@ -44,5 +44,8 @@ jobs:
             docker build -t flask-backend:latest .
 
             # Deploy using Docker Swarm
-            docker service create --name backend --replicas 1 -p 80:80 flask-backend:latest
+            # docker service create --name backend --replicas 1 -p 80:80 flask-backend:latest
+            docker run -d -p 80:80 flask-backend
+
+            docker network connect fastlog flask-backend
           EOF
