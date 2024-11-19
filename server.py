@@ -9,7 +9,7 @@ from time import sleep
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, origins=["*"])
 
 print("HOST:", os.environ["MYSQL_HOST"])
 
