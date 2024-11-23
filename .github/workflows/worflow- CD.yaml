@@ -29,7 +29,7 @@ jobs:
       - name: Deploy to EC2 using Docker Swarm
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-            ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@10.0.2.37 << 'EOF'
+            ssh -i /home/ubuntu/chave_pen/ch28102024.pem -L 2222:localhost:22 user@private-instance-ip << 'EOF'
               cd /fastlog-backend
 
               # Pull the latest changes
