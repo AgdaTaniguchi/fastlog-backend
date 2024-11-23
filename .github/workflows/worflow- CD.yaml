@@ -29,11 +29,7 @@ jobs:
       - name: Deploy to EC2 using Docker Swarm
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-            # Navigate to the target directory
-            cd chave-pen
-
-            ssh -i "ch28102024.pem" ubuntu@10.0.2.37
-            
+            ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.10.0.2.37 }} << 'EOF'
             cd /fastlog-backend
 
             # Pull the latest changes
@@ -43,7 +39,7 @@ jobs:
             docker build -t flask-backend:latest .
 
             # Deploy using Docker Swarm
-            docker run -d --name flask-backend --env-file ./.env -p 8501:8501 flask-backend:latest
+            docker run -d --name flask-backend --env-file .env -p 8501:8501 flask-backend:latest
 
             docker network connect fastlog flask-backend
           EOF
