@@ -29,21 +29,19 @@ jobs:
       - name: Deploy to EC2 using Docker Swarm
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-            ssh -i /home/ubuntu/chave_pen/ch28102024.pem -L 2222:localhost:22 ubuntu@10.0.2.37 << 'EOF'
-              cd fastlog-backend
+          cd fastlog-backend
 
-              # Pull the latest changes
-              git pull origin main
+          # Pull the latest changes
+          git pull origin main
 
-              # Build Docker image
-              docker build -t flask-backend:latest .
+          # Build Docker image
+          docker build -t flask-backend:latest .
 
-              docker stop flask-backend
-              docker rm flask-backend
+          docker stop flask-backend
+          docker rm flask-backend
 
-              # Deploy using Docker Swarm
-              docker run -d --name flask-backend --env-file .env -p 8501:8501 flask-backend:latest
+          # Deploy using Docker Swarm
+          docker run -d --name flask-backend --env-file .env -p 8501:8501 flask-backend:latest
 
-              docker network connect fastlog flask-backend
-            EOF
+          docker network connect fastlog flask-backend
           EOF
