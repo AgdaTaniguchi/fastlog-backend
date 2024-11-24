@@ -37,8 +37,7 @@ jobs:
             # Build Docker image
             docker build -t flask-backend:latest .
 
-            docker stop flask-backend
-            docker rm flask-backend
+            docker service ls --format '{{.Name}}' | grep '^flask-backend' | xargs -r docker service rm
 
             docker network create --driver overlay fastlog || true
 
