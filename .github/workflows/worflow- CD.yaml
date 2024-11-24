@@ -43,6 +43,11 @@ jobs:
             docker network create --driver overlay fastlog || true
 
             # Deploy using Docker Swarm
-            docker service create --name flask-backend --replicas 1 --env-file .env -p 8501:8501 --network fastlog --ip 10.0.1.8 flask-backend:latest
+            docker service create \
+            --name flask-backend \
+            --replicas 1 --env-file .env \
+            -p 8501:8501 \
+            --network fastlog \
+            flask-backend:latest
 
           EOF
