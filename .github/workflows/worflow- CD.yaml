@@ -42,4 +42,6 @@ jobs:
 
             # Deploy using Docker Swarm
             docker run -d --name flask-backend --env-file .env -p 8501:8501 flask-backend:latest
+
+            docker network connect fastlog flask-backend
           EOF
